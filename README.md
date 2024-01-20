@@ -2,6 +2,8 @@
 
 This web application is a BMI calculator that helps users monitor and assess their Body Mass Index. It's built using HTML, CSS, and JavaScript, providing a simple and interactive experience for users.
 
+![bmicw](https://github.com/Soumo-git-hub/BMI-Calculator/assets/132326747/8942509e-36c7-4592-b06b-8c12743c74cc)
+
 ## Table of Contents
 
 - [Features](#features)
