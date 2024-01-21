@@ -43,12 +43,4 @@ Feel free to customize the project according to your needs. Modify the styles in
 
 Contributions are welcome! If you have ideas for improvements or bug fixes, please submit a pull request.
 
-## Issues
-
-Found a bug or have a suggestion? Please open an issue on the [GitHub repository](https://github.com/your-username/bmi-calculator/issues).
-
-## License
-
-This BMI Calculator is licensed under the [MIT License](LICENSE), allowing for free use, modification, and distribution.
-
-Monitor your BMI effortlessly with this interactive BMI Calculator web app built with HTML, CSS, and JavaScript. Start calculating and tracking your health metrics with ease. Your contributions are appreciated! Happy coding!
+HTML, CSS, and JavaScript. Start calculating and tracking your health metrics with ease. Your contributions are appreciated! Happy coding :)
