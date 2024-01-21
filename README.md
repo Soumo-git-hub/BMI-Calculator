@@ -10,8 +10,6 @@ This web application is a BMI calculator that helps users monitor and assess the
 - [Usage](#usage)
 - [Customization](#customization)
 - [Contributing](#contributing)
-- [Issues](#issues)
-- [License](#license)
 
 ## Features
 
