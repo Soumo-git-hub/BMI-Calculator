@@ -1,87 +1,571 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BMI Calculator</title>
-  <link rel="stylesheet" type="text/css" href="bmi.css">
-  <link rel="shortcut icon" href="assets/images/S-Logo.jpg" type="image/x-icon">
+  <title>Health Dashboard</title>
+  <link rel="stylesheet" href="bmi.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<style>
-  a {
-    color: aliceblue;
-  }
-
-  a:hover {
-    color: aquamarin;
-  }
-</style>
-
 <body>
+  <nav class="top-nav">
+    <div class="logo">HealthTrack</div>
+    <div class="nav-links">
+      <a href="#dashboard" class="active">Dashboard</a>
+      <a href="#calculators">Calculators</a>
+      <a href="#daily-log">Daily Log</a>
+      <a href="#nutrition">Nutrition</a>
+    </div>
+    <div class="user-profile">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </nav>
+
   <div class="container">
-    <div class="box">
-      <h1>BMI Calculator</h1>
-      <div class="content">
-        <div class="input">
-          <label for="height">Height:</label>
-          <input type="number" id="height" placeholder="Enter your Height">
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard-section active-section">
+      <h1>Your Health Dashboard</h1>
+      <div class="metrics-overview">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fas fa-weight"></i></div>
+          <div class="metric-data">
+            <h3>BMI</h3>
+            <p id="dashboard-bmi">00.00</p>
+            <span id="bmi-status">Calculate your BMI</span>
+          </div>
         </div>
-        <div class="input">
-          <label for="weight">Weight:</label>
-          <input type="number" id="weight" placeholder="Enter your Weight">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fas fa-fire"></i></div>
+          <div class="metric-data">
+            <h3>BMR</h3>
+            <p id="dashboard-bmr">0000</p>
+            <span>calories/day</span>
+          </div>
         </div>
-        <div class="input">
-          <label for="age">Age:</label>
-          <input type="number" id="age" placeholder="Enter your age">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fas fa-percentage"></i></div>
+          <div class="metric-data">
+            <h3>Body Fat %</h3>
+            <p id="dashboard-bodyfat">00.0</p>
+            <span id="bodyfat-status">Calculate your body fat</span>
+          </div>
         </div>
-        <div class="input">
-          <label for="gender">Gender:</label>
-          <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fas fa-tint"></i></div>
+          <div class="metric-data">
+            <h3>Water Intake</h3>
+            <p id="dashboard-water">0000</p>
+            <span>ml/day</span>
+          </div>
         </div>
-        <select id="unit-select">
-          <option value="metric">Metric (kg/cm)</option>
-          <option value="imperial">Imperial (lbs/ft)</option>
-        </select>
-        <button id="calculate">Calculate BMI</button>
       </div>
-      <div class="result">
-        <p>Your BMI is:</p>
-        <div id="result">00.00</div>
-        <p class="comment"></p>
+      
+      <div class="charts-container">
+        <div class="chart-card">
+          <h3>Weight Trend</h3>
+          <canvas id="weightChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Health Progress</h3>
+          <canvas id="healthChart"></canvas>
+        </div>
       </div>
-    </div>
+      
+      <div class="recommendations">
+        <h3><i class="fas fa-lightbulb"></i> Personalized Recommendations</h3>
+        <div id="recommendations-content">
+          Complete your health profile to get personalized recommendations.
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section id="calculators" class="calculators-section">
+      <h1>Health Calculators</h1>
+      
+      <div class="calculator-tabs">
+        <button class="tab-btn active" data-tab="bmi">BMI</button>
+        <button class="tab-btn" data-tab="bmr">BMR</button>
+        <button class="tab-btn" data-tab="bodyfat">Body Fat</button>
+        <button class="tab-btn" data-tab="idealweight">Ideal Weight</button>
+        <button class="tab-btn" data-tab="water">Water Intake</button>
+      </div>
+      
+      <div class="calculator-content">
+        <!-- BMI Calculator Tab -->
+        <div class="tab-content active" id="bmi-tab">
+          <h2>BMI Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bmi-height">Height:</label>
+              <input type="number" id="bmi-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bmi-weight">Weight:</label>
+              <input type="number" id="bmi-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bmi-age">Age:</label>
+              <input type="number" id="bmi-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bmi-gender">Gender:</label>
+              <select id="bmi-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bmi-unit">Unit:</label>
+              <select id="bmi-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-bmi" class="calculate-btn">Calculate BMI</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your BMI:</h3>
+            <div id="bmi-result" class="result-value">00.00</div>
+            <p id="bmi-comment" class="result-comment"></p>
+          </div>
+        </div>
+        
+        <!-- BMR Calculator Tab -->
+        <div class="tab-content" id="bmr-tab">
+          <h2>BMR Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bmr-height">Height:</label>
+              <input type="number" id="bmr-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bmr-weight">Weight:</label>
+              <input type="number" id="bmr-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bmr-age">Age:</label>
+              <input type="number" id="bmr-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bmr-gender">Gender:</label>
+              <select id="bmr-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="activity-level">Activity Level:</label>
+              <select id="activity-level">
+                <option value="1.2">Sedentary (little or no exercise)</option>
+                <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+                <option value="1.55">Moderately active (moderate exercise 3-5 days/week)</option>
+                <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
+                <option value="1.9">Extra active (very hard exercise & physical job)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bmr-unit">Unit:</label>
+              <select id="bmr-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-bmr" class="calculate-btn">Calculate BMR</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your BMR:</h3>
+            <div id="bmr-result" class="result-value">0000</div>
+            <p>calories/day at rest</p>
+            <div id="tdee-result" class="secondary-result">
+              <h4>Daily Calorie Needs (TDEE):</h4>
+              <div id="tdee-value">0000</div>
+              <p>calories/day with your activity level</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Body Fat Calculator Tab -->
+        <div class="tab-content" id="bodyfat-tab">
+          <h2>Body Fat Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bf-height">Height:</label>
+              <input type="number" id="bf-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bf-weight">Weight:</label>
+              <input type="number" id="bf-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bf-age">Age:</label>
+              <input type="number" id="bf-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bf-gender">Gender:</label>
+              <select id="bf-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bf-neck">Neck Circumference:</label>
+              <input type="number" id="bf-neck" placeholder="Measure around neck">
+            </div>
+            <div class="input-group">
+              <label for="bf-waist">Waist Circumference:</label>
+              <input type="number" id="bf-waist" placeholder="Measure around waist">
+            </div>
+            <div class="input-group female-only">
+              <label for="bf-hip">Hip Circumference:</label>
+              <input type="number" id="bf-hip" placeholder="Measure around hips">
+            </div>
+            <div class="input-group">
+              <label for="bf-unit">Unit:</label>
+              <select id="bf-unit">
+                <option value="metric">Metric (cm)</option>
+                <option value="imperial">Imperial (in)</option>
+              </select>
+            </div>
+            <button id="calculate-bodyfat" class="calculate-btn">Calculate Body Fat</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Body Fat Percentage:</h3>
+            <div id="bodyfat-result" class="result-value">00.0</div>
+            <p id="bodyfat-comment" class="result-comment"></p>
+          </div>
+        </div>
+        
+        <!-- Ideal Weight Calculator Tab -->
+        <div class="tab-content" id="idealweight-tab">
+          <h2>Ideal Weight Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="iw-height">Height:</label>
+              <input type="number" id="iw-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="iw-gender">Gender:</label>
+              <select id="iw-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="iw-unit">Unit:</label>
+              <select id="iw-unit">
+                <option value="metric">Metric (cm)</option>
+                <option value="imperial">Imperial (in)</option>
+              </select>
+            </div>
+            <button id="calculate-idealweight" class="calculate-btn">Calculate Ideal Weight</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Ideal Weight Range:</h3>
+            <div id="idealweight-result" class="result-value">00.0 - 00.0</div>
+            <div id="idealweight-formulas" class="secondary-result">
+              <h4>Based on different formulas:</h4>
+              <ul id="idealweight-list"></ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Water Intake Calculator Tab -->
+        <div class="tab-content" id="water-tab">
+          <h2>Water Intake Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="water-weight">Weight:</label>
+              <input type="number" id="water-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="water-activity">Activity Level:</label>
+              <select id="water-activity">
+                <option value="sedentary">Sedentary</option>
+                <option value="light">Light Exercise</option>
+                <option value="moderate">Moderate Exercise</option>
+                <option value="active">Active Exercise</option>
+                <option value="very-active">Very Active Exercise</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="water-climate">Climate:</label>
+              <select id="water-climate">
+                <option value="moderate">Moderate</option>
+                <option value="hot">Hot</option>
+                <option value="humid">Humid</option>
+                <option value="cold">Cold</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="water-unit">Unit:</label>
+              <select id="water-unit">
+                <option value="metric">Metric (kg)</option>
+                <option value="imperial">Imperial (lbs)</option>
+              </select>
+            </div>
+            <button id="calculate-water" class="calculate-btn">Calculate Water Needs</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Daily Water Intake:</h3>
+            <div id="water-result" class="result-value">0000 ml</div>
+            <p id="water-comment" class="result-comment"></p>
+            <div class="water-visual">
+              <div class="water-bottle">
+                <div class="water-fill"></div>
+              </div>
+              <div class="water-glasses">
+                <p><span id="water-glasses-count">0</span> glasses (250ml each)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Daily Log Section -->
+    <section id="daily-log" class="daily-log-section">
+      <h1>Daily Health Tracker</h1>
+      
+      <div class="daily-log-date">
+        <button id="prev-day"><i class="fas fa-chevron-left"></i></button>
+        <input type="date" id="log-date">
+        <button id="next-day"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      
+      <div class="log-container">
+        <div class="log-card">
+          <div class="log-header">
+            <i class="fas fa-weight"></i>
+            <h3>Weight</h3>
+          </div>
+          <div class="log-content">
+            <input type="number" id="log-weight" placeholder="Enter today's weight">
+            <select id="log-weight-unit">
+              <option value="kg">kg</option>
+              <option value="lbs">lbs</option>
+            </select>
+            <button id="save-weight" class="save-btn">Save</button>
+          </div>
+        </div>
+        
+        <div class="log-card">
+          <div class="log-header">
+            <i class="fas fa-tint"></i>
+            <h3>Water Intake</h3>
+          </div>
+          <div class="log-content">
+            <div class="water-progress">
+              <div class="water-target">Target: <span id="water-target">2500</span> ml</div>
+              <div class="water-progress-bar">
+                <div class="water-progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="water-amount">0 / <span id="water-goal">2500</span> ml</div>
+            </div>
+            <div class="water-buttons">
+              <button class="water-add" data-amount="250">+250ml</button>
+              <button class="water-add" data-amount="500">+500ml</button>
+              <input type="number" id="custom-water" placeholder="Custom amount">
+              <button id="add-custom-water">Add</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="log-card">
+          <div class="log-header">
+            <i class="fas fa-utensils"></i>
+            <h3>Meals</h3>
+          </div>
+          <div class="log-content">
+            <div class="meal-tabs">
+              <button class="meal-tab active" data-meal="breakfast">Breakfast</button>
+              <button class="meal-tab" data-meal="lunch">Lunch</button>
+              <button class="meal-tab" data-meal="dinner">Dinner</button>
+              <button class="meal-tab" data-meal="snacks">Snacks</button>
+            </div>
+            <div class="meal-input">
+              <textarea id="meal-description" placeholder="Describe what you ate..."></textarea>
+              <div class="meal-calories">
+                <label for="meal-calories">Calories (est.):</label>
+                <input type="number" id="meal-calories" placeholder="Calories">
+              </div>
+              <button id="save-meal" class="save-btn">Save Meal</button>
+            </div>
+            <div class="meals-summary">
+              <h4>Today's Meals</h4>
+              <ul id="meals-list"></ul>
+              <div class="total-calories">
+                <span>Total calories: </span>
+                <span id="total-calories">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="log-card">
+          <div class="log-header">
+            <i class="fas fa-running"></i>
+            <h3>Exercise</h3>
+          </div>
+          <div class="log-content">
+            <input type="text" id="exercise-type" placeholder="Type of exercise">
+            <div class="exercise-details">
+              <input type="number" id="exercise-duration" placeholder="Duration (mins)">
+              <input type="number" id="exercise-calories" placeholder="Calories burned (est.)">
+            </div>
+            <button id="save-exercise" class="save-btn">Save Exercise</button>
+            <div class="exercise-summary">
+              <h4>Today's Exercises</h4>
+              <ul id="exercises-list"></ul>
+              <div class="total-exercise">
+                <span>Total calories burned: </span>
+                <span id="total-exercise-calories">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="log-card">
+          <div class="log-header">
+            <i class="fas fa-bed"></i>
+            <h3>Sleep</h3>
+          </div>
+          <div class="log-content">
+            <div class="sleep-times">
+              <div class="sleep-time">
+                <label for="sleep-start">Bedtime:</label>
+                <input type="time" id="sleep-start">
+              </div>
+              <div class="sleep-time">
+                <label for="sleep-end">Wake time:</label>
+                <input type="time" id="sleep-end">
+              </div>
+            </div>
+            <div class="sleep-quality">
+              <label for="sleep-quality">Sleep Quality:</label>
+              <select id="sleep-quality">
+                <option value="5">Excellent</option>
+                <option value="4">Good</option>
+                <option value="3">Fair</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+              </select>
+            </div>
+            <button id="save-sleep" class="save-btn">Save Sleep</button>
+            <div id="sleep-result">
+              <p>Sleep duration: <span id="sleep-duration">0h 0m</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Nutrition Section -->
+    <section id="nutrition" class="nutrition-section">
+      <h1>Nutrition Planner</h1>
+      
+      <div class="nutrition-container">
+        <div class="nutrition-goals">
+          <h3>Your Nutrition Goals</h3>
+          <div class="goal-card">
+            <h4>Based on your profile:</h4>
+            <div class="goal-item">
+              <span>Daily Calories:</span>
+              <span id="nutr-calories">0000</span>
+            </div>
+            <div class="goal-item">
+              <span>Protein:</span>
+              <span id="nutr-protein">000g</span>
+            </div>
+            <div class="goal-item">
+              <span>Carbs:</span>
+              <span id="nutr-carbs">000g</span>
+            </div>
+            <div class="goal-item">
+              <span>Fat:</span>
+              <span id="nutr-fat">000g</span>
+            </div>
+          </div>
+          <div class="goal-selector">
+            <h4>Adjust your goal:</h4>
+            <select id="nutrition-goal">
+              <option value="maintain">Maintain Weight</option>
+              <option value="lose">Lose Weight</option>
+              <option value="gain">Gain Weight</option>
+            </select>
+            <select id="goal-intensity">
+              <option value="mild">Mild (±250 calories)</option>
+              <option value="moderate">Moderate (±500 calories)</option>
+              <option value="aggressive">Aggressive (±750 calories)</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="meal-planner">
+          <h3>Meal Suggestions</h3>
+          <div class="meal-preferences">
+            <h4>Dietary Preferences:</h4>
+            <div class="preferences-options">
+              <label><input type="checkbox" id="pref-vegetarian"> Vegetarian</label>
+              <label><input type="checkbox" id="pref-vegan"> Vegan</label>
+              <label><input type="checkbox" id="pref-gluten-free"> Gluten-Free</label>
+              <label><input type="checkbox" id="pref-dairy-free"> Dairy-Free</label>
+              <label><input type="checkbox" id="pref-low-carb"> Low-Carb</label>
+              <label><input type="checkbox" id="pref-high-protein"> High-Protein</label>
+            </div>
+            <button id="generate-meal-plan" class="primary-btn">Generate Meal Plan</button>
+          </div>
+          
+          <div class="meal-plan-result">
+            <div class="meal-day-selector">
+              <button class="meal-day active" data-day="monday">Mon</button>
+              <button class="meal-day" data-day="tuesday">Tue</button>
+              <button class="meal-day" data-day="wednesday">Wed</button>
+              <button class="meal-day" data-day="thursday">Thu</button>
+              <button class="meal-day" data-day="friday">Fri</button>
+              <button class="meal-day" data-day="saturday">Sat</button>
+              <button class="meal-day" data-day="sunday">Sun</button>
+            </div>
+            
+            <div class="day-meal-plan active" id="monday-plan">
+              <div class="plan-meal-card">
+                <h4>Breakfast</h4>
+                <div class="plan-meal-content" id="monday-breakfast">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Lunch</h4>
+                <div class="plan-meal-content" id="monday-lunch">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Dinner</h4>
+                <div class="plan-meal-content" id="monday-dinner">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Snacks</h4>
+                <div class="plan-meal-content" id="monday-snacks">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Repeat similar structure for other days -->
+            <div class="day-meal-plan" id="tuesday-plan">
+              <!-- Tuesday meals -->
+            </div>
+            <!-- Other days -->
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-  <script type="text/javascript" src="bmi.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <script src="bmi.js"></script>
 </body>
-<nav>
-  <a href="https://www.linkedin.com/in/soumyadyuti-dey-245sd/">Contact</a>
-</nav>
-
 </html>
-
-<p id="comment"></p>
-
-
-<div class="letter-image">
-  <div class="animated-mail">
-    <div class="back-fold"></div>
-    <div class="letter">
-      <div class="letter-border"></div>
-      <div class="letter-title"></div>
-      <label for="message"> Have a Good Day :) </label>
-      <div class="letter-context"></div>
-      <div class="letter-stamp">
-        <div class="letter-stamp-inner"></div>
-      </div>
-    </div>
-    <div class="top-fold"></div>
-    <div class="body"></div>
-    <div class="left-fold"></div>
-  </div>
-  <div class="shadow"></div>
-</div>

@@ -41,4 +41,6 @@ Feel free to customize the project according to your needs. Modify the styles in
 
 Contributions are welcome! If you have ideas for improvements or bug fixes, please submit a pull request.
 
-HTML, CSS, and JavaScript. Start calculating and tracking your health metrics with ease. Your contributions are appreciated! Happy coding :)
+HTML, CSS, and JavaScript. Start calculating and tracking your health metrics with ease. Your contributions are appreciated! 
+
+New Version Is Just About To Relesed :)
