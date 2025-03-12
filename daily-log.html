@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Health Log - HealthTrack</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="bmi.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-heartbeat"></i>
+      <h1>HealthTrack</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="bmi.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="calculators.html"><i class="fas fa-calculator"></i> Calculators</a></li>
+        <li class="active"><a href="daily-log.html"><i class="fas fa-calendar-day"></i> Daily Log</a></li>
+        <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+        <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <span id="user-name">User</span>
+      <button id="logout-btn" class="btn btn-outline"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="active-section">
+      <h1>Daily Health Log</h1>
+      <p class="section-description">Track your daily health metrics and activities</p>
+
+      <div class="date-selector">
+        <button id="prev-day" class="btn btn-outline"><i class="fas fa-chevron-left"></i></button>
+        <h3 id="current-date">Today, June 10, 2023</h3>
+        <button id="next-day" class="btn btn-outline"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-weight"></i> Weight</h2>
+          </div>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="number" id="weight-input" class="form-control" placeholder="Enter weight">
+              <select id="weight-unit" class="form-control">
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+              </select>
+            </div>
+            <button id="save-weight" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="weight-history">Last recorded: <span>Not recorded today</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-tint"></i> Water Intake</h2>
+          </div>
+          <div class="card-body">
+            <div class="water-tracker">
+              <div class="water-glasses">
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+                <div class="glass" data-value="250"></div>
+              </div>
+              <p>Total: <span id="water-total">0</span> ml</p>
+            </div>
+            <div class="input-group">
+              <input type="number" id="water-input" class="form-control" placeholder="Custom amount">
+              <span>ml</span>
+            </div>
+            <button id="save-water" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="water-history">Today's goal: <span>2000 ml</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-running"></i> Exercise</h2>
+          </div>
+          <div class="card-body">
+            <div class="input-group">
+              <select id="exercise-type" class="form-control">
+                <option value="">Select activity</option>
+                <option value="walking">Walking</option>
+                <option value="running">Running</option>
+                <option value="cycling">Cycling</option>
+                <option value="swimming">Swimming</option>
+                <option value="weightlifting">Weight Training</option>
+                <option value="yoga">Yoga</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <input type="number" id="exercise-duration" class="form-control" placeholder="Duration">
+              <span>minutes</span>
+            </div>
+            <button id="save-exercise" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="exercise-history">Today's activities: <span>None recorded</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-utensils"></i> Meals</h2>
+          </div>
+          <div class="card-body">
+            <div class="tab-buttons meal-selector">
+              <button class="tab-btn meal-btn active" data-meal="breakfast">Breakfast</button>
+              <button class="tab-btn meal-btn" data-meal="lunch">Lunch</button>
+              <button class="tab-btn meal-btn" data-meal="dinner">Dinner</button>
+              <button class="tab-btn meal-btn" data-meal="snacks">Snacks</button>
+            </div>
+            <textarea id="meal-input" class="form-control" placeholder="Describe what you ate..."></textarea>
+            <button id="save-meal" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="meal-history">Meals logged: <span>0/4</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-bed"></i> Sleep</h2>
+          </div>
+          <div class="card-body">
+            <div class="input-group">
+              <label>Hours slept:</label>
+              <input type="number" id="sleep-hours" class="form-control" placeholder="Hours" min="0" max="24" step="0.5">
+            </div>
+            <div class="input-group">
+              <label>Quality:</label>
+              <div class="rating">
+                <i class="far fa-star" data-rating="1"></i>
+                <i class="far fa-star" data-rating="2"></i>
+                <i class="far fa-star" data-rating="3"></i>
+                <i class="far fa-star" data-rating="4"></i>
+                <i class="far fa-star" data-rating="5"></i>
+              </div>
+            </div>
+            <button id="save-sleep" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="sleep-history">Last night: <span>Not recorded</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-notes-medical"></i> Health Notes</h2>
+          </div>
+          <div class="card-body">
+            <textarea id="health-notes" class="form-control" placeholder="Add any health notes, symptoms, or observations..."></textarea>
+            <button id="save-notes" class="btn btn-primary">Save</button>
+            <div class="log-history">
+              <p id="notes-history">Notes: <span>None</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card daily-summary">
+        <div class="card-header">
+          <h2 class="card-title"><i class="fas fa-chart-line"></i> Daily Summary</h2>
+        </div>
+        <div class="card-body">
+          <div class="summary-content" id="daily-summary-content">
+            <p>Complete your daily log to see a summary.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="daily-log.js"></script>
+  <script src="bmi.js"></script>
+</body>
+</html>

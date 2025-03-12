@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Calculators</title>
+  <link rel="stylesheet" href="bmi.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="logo">HealthTrack</div>
+    <div class="nav-links">
+      <a href="bmi.html">Dashboard</a>
+      <a href="calculators.html" class="active">Calculators</a>
+      <a href="daily-log.html">Daily Log</a>
+      <a href="nutrition.html">Nutrition</a>
+    </div>
+    <div class="user-profile">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Calculators Section -->
+    <section id="calculators" class="calculators-section active-section">
+      <h1>Health Calculators</h1>
+      
+      <!-- First-time user welcome banner -->
+      <div id="first-login-banner" class="welcome-banner">
+        <i class="fas fa-hand-sparkles"></i>
+        <div class="welcome-message">
+          <h3>Welcome to HealthTrack!</h3>
+          <p>Let's get started by calculating your first BMI to unlock personalized health insights.</p>
+        </div>
+        <button id="dismiss-welcome" class="dismiss-btn"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="calculator-tabs">
+        <button class="tab-btn active" data-tab="bmi">BMI</button>
+        <button class="tab-btn" data-tab="bmr">BMR</button>
+        <button class="tab-btn" data-tab="bodyfat">Body Fat</button>
+        <button class="tab-btn" data-tab="idealweight">Ideal Weight</button>
+        <button class="tab-btn" data-tab="water">Water Intake</button>
+      </div>
+      
+      <div class="calculator-content">
+        <!-- BMI Calculator Tab -->
+        <!-- BMI Calculator Tab -->
+        <div class="tab-content active" id="bmi-tab">
+          <h2>BMI Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bmi-height">Height:</label>
+              <input type="number" id="bmi-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bmi-weight">Weight:</label>
+              <input type="number" id="bmi-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bmi-age">Age:</label>
+              <input type="number" id="bmi-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bmi-gender">Gender:</label>
+              <select id="bmi-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bmi-unit">Unit:</label>
+              <select id="bmi-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-bmi" class="calculate-btn">Calculate BMI</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your BMI:</h3>
+            <div id="bmi-result" class="result-value">00.00</div>
+            <p id="bmi-comment" class="result-comment"></p>
+          </div>
+        </div>
+        
+        <!-- BMR Calculator Tab -->
+        <div class="tab-content" id="bmr-tab">
+          <h2>BMR Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bmr-height">Height:</label>
+              <input type="number" id="bmr-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bmr-weight">Weight:</label>
+              <input type="number" id="bmr-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bmr-age">Age:</label>
+              <input type="number" id="bmr-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bmr-gender">Gender:</label>
+              <select id="bmr-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="activity-level">Activity Level:</label>
+              <select id="activity-level">
+                <option value="1.2">Sedentary (little or no exercise)</option>
+                <option value="1.375">Light (exercise 1-3 days/week)</option>
+                <option value="1.55">Moderate (exercise 3-5 days/week)</option>
+                <option value="1.725">Active (exercise 6-7 days/week)</option>
+                <option value="1.9">Very Active (hard exercise daily)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bmr-unit">Unit:</label>
+              <select id="bmr-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-bmr" class="calculate-btn">Calculate BMR</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your BMR:</h3>
+            <div id="bmr-result" class="result-value">0000</div>
+            <p>calories/day at rest</p>
+            <h3>Your TDEE:</h3>
+            <div id="tdee-value" class="result-value">0000</div>
+            <p>calories/day with activity</p>
+          </div>
+        </div>
+        
+        <!-- Body Fat Calculator Tab -->
+        <div class="tab-content" id="bodyfat-tab">
+          <h2>Body Fat Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="bf-height">Height:</label>
+              <input type="number" id="bf-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="bf-weight">Weight:</label>
+              <input type="number" id="bf-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="bf-age">Age:</label>
+              <input type="number" id="bf-age" placeholder="Enter your age">
+            </div>
+            <div class="input-group">
+              <label for="bf-gender">Gender:</label>
+              <select id="bf-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="bf-neck">Neck:</label>
+              <input type="number" id="bf-neck" placeholder="Neck circumference">
+            </div>
+            <div class="input-group">
+              <label for="bf-waist">Waist:</label>
+              <input type="number" id="bf-waist" placeholder="Waist circumference">
+            </div>
+            <div class="input-group female-only">
+              <label for="bf-hip">Hip:</label>
+              <input type="number" id="bf-hip" placeholder="Hip circumference">
+            </div>
+            <div class="input-group">
+              <label for="bf-unit">Unit:</label>
+              <select id="bf-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-bodyfat" class="calculate-btn">Calculate Body Fat</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Body Fat Percentage:</h3>
+            <div id="bodyfat-result" class="result-value">00.0</div>
+            <p id="bodyfat-comment" class="result-comment"></p>
+          </div>
+        </div>
+        
+        <!-- Ideal Weight Calculator Tab -->
+        <div class="tab-content" id="idealweight-tab">
+          <h2>Ideal Weight Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="iw-height">Height:</label>
+              <input type="number" id="iw-height" placeholder="Enter your height">
+            </div>
+            <div class="input-group">
+              <label for="iw-gender">Gender:</label>
+              <select id="iw-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="iw-unit">Unit:</label>
+              <select id="iw-unit">
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
+              </select>
+            </div>
+            <button id="calculate-idealweight" class="calculate-btn">Calculate Ideal Weight</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Ideal Weight (Average):</h3>
+            <div id="idealweight-result" class="result-value">00.0</div>
+            <h4>Based on different formulas:</h4>
+            <ul id="idealweight-list" class="formula-list">
+              <!-- Formula results will be added here -->
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Water Intake Calculator Tab -->
+        <div class="tab-content" id="water-tab">
+          <h2>Water Intake Calculator</h2>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="water-weight">Weight:</label>
+              <input type="number" id="water-weight" placeholder="Enter your weight">
+            </div>
+            <div class="input-group">
+              <label for="water-activity">Activity Level:</label>
+              <select id="water-activity">
+                <option value="sedentary">Sedentary</option>
+                <option value="light">Light Activity</option>
+                <option value="moderate">Moderate Activity</option>
+                <option value="active">Active</option>
+                <option value="very-active">Very Active</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="water-climate">Climate:</label>
+              <select id="water-climate">
+                <option value="moderate">Moderate</option>
+                <option value="hot">Hot</option>
+                <option value="humid">Humid</option>
+                <option value="cold">Cold</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="water-unit">Unit:</label>
+              <select id="water-unit">
+                <option value="metric">Metric (kg)</option>
+                <option value="imperial">Imperial (lbs)</option>
+              </select>
+            </div>
+            <button id="calculate-water" class="calculate-btn">Calculate Water Intake</button>
+          </div>
+          <div class="calculator-result">
+            <h3>Your Daily Water Intake:</h3>
+            <div id="water-result" class="result-value">0000 ml</div>
+            <p id="water-comment" class="result-comment"></p>
+            <div class="water-visualization">
+              <div class="water-bottle">
+                <div class="water-fill"></div>
+              </div>
+              <p><span id="water-glasses-count">0</span> glasses (250ml each)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="bmi.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if this is the first login
+        const isFirstLogin = checkIfFirstLogin();
+        
+        // Show or hide welcome banner based on first login status
+        const welcomeBanner = document.getElementById('first-login-banner');
+        if (welcomeBanner) {
+          welcomeBanner.style.display = isFirstLogin ? 'flex' : 'none';
+        }
+        
+        // Dismiss welcome banner
+        const dismissBtn = document.getElementById('dismiss-welcome');
+        if (dismissBtn) {
+          dismissBtn.addEventListener('click', function() {
+            welcomeBanner.style.display = 'none';
+          });
+        }
+        
+        // Function to check if this is the first login
+        function checkIfFirstLogin() {
+          // Get the current user from session storage
+          const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+          
+          // Check if the user has a firstLogin flag
+          if (currentUser.id) {
+            // Check if we've recorded this user's first visit
+            const firstLoginFlag = localStorage.getItem(`user_${currentUser.id}_first_login`);
+            
+            if (!firstLoginFlag) {
+              // Set the flag for future visits
+              localStorage.setItem(`user_${currentUser.id}_first_login`, 'false');
+              return true;
+            }
+            return false;
+          }
+          
+          // Default to true if we can't determine
+          return true;
+        }
+        
+        // Handle tab navigation
+        document.querySelectorAll('.tab-btn').forEach(button => {
+          button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            document.querySelector('.tab-content.active').classList.remove('active');
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.querySelector('.tab-btn.active').classList.remove('active');
+            this.classList.add('active');
+          });
+        });
+        
+        // Handle calculator form submissions
+        // BMI calculator
+        const calculateBMIBtn = document.getElementById('calculate-bmi');
+        if (calculateBMIBtn) {
+          calculateBMIBtn.addEventListener('click', function() {
+            if (typeof calculateBMI === 'function') {
+              calculateBMI();
+            } else {
+              console.error('calculateBMI function not found');
+            }
+          });
+        }
+        
+        // BMR calculator
+        const calculateBMRBtn = document.getElementById('calculate-bmr');
+        if (calculateBMRBtn) {
+          calculateBMRBtn.addEventListener('click', function() {
+            if (typeof calculateBMR === 'function') {
+              calculateBMR();
+            } else {
+              console.error('calculateBMR function not found');
+            }
+          });
+        }
+        
+        // Body Fat calculator
+        const calculateBodyFatBtn = document.getElementById('calculate-bodyfat');
+        if (calculateBodyFatBtn) {
+          calculateBodyFatBtn.addEventListener('click', function() {
+            if (typeof calculateBodyFat === 'function') {
+              calculateBodyFat();
+            } else {
+              console.error('calculateBodyFat function not found');
+            }
+          });
+        }
+        
+        // Ideal Weight calculator
+        const calculateIdealWeightBtn = document.getElementById('calculate-idealweight');
+        if (calculateIdealWeightBtn) {
+          calculateIdealWeightBtn.addEventListener('click', function() {
+            if (typeof calculateIdealWeight === 'function') {
+              calculateIdealWeight();
+            } else {
+              console.error('calculateIdealWeight function not found');
+            }
+          });
+        }
+        
+        // Water Intake calculator
+        const calculateWaterBtn = document.getElementById('calculate-water');
+        if (calculateWaterBtn) {
+          calculateWaterBtn.addEventListener('click', function() {
+            if (typeof calculateWaterIntake === 'function') {
+              calculateWaterIntake();
+            } else {
+              console.error('calculateWaterIntake function not found');
+            }
+          });
+        }
+        
+        // Initialize calculator result sections as hidden if they're empty
+        document.querySelectorAll('.calculator-result').forEach(section => {
+          const resultValue = section.querySelector('.result-value');
+          if (resultValue && (resultValue.textContent.trim() === '00.00' || 
+                              resultValue.textContent.trim() === '0000' || 
+                              resultValue.textContent.trim() === '0000 ml' || 
+                              resultValue.textContent.trim() === '00.0')) {
+            section.style.display = 'none';
+          }
+        });
+      });
+    </script>
+</body>
+</html>

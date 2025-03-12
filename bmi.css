@@ -1,44 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --primary-color: #4f7df9;
-  --secondary-color: #00192f;
-  --accent-color: #6c63ff;
-  --light-color: #f8f9fa;
-  --dark-color: #343a40;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --danger-color: #dc3545;
-  --gray-color: #6c757d;
+  /* Color palette */
+  --primary: #4f7df9;
+  --primary-dark: #3a67e0;
+  --primary-light: rgba(79, 125, 249, 0.1);
+  --secondary: #00192f;
+  --accent: #6c63ff;
+  --success: #28a745;
+  --success-dark: #218838;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --gray: #6c757d;
   --light-gray: #e9ecef;
-  --border-radius: 12px;
-  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  /* UI elements */
+  --radius: 12px;
+  --radius-sm: 6px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --shadow-btn: 0 4px 10px rgba(79, 125, 249, 0.3);
+  --shadow-success: 0 4px 10px rgba(40, 167, 69, 0.3);
   --transition: all 0.3s ease;
+  
+  /* Gradients */
+  --gradient-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --gradient-card: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--gradient-bg);
   line-height: 1.6;
-  color: var(--dark-color);
+  color: var(--dark);
 }
 
-/* Navigation */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ===== NAVIGATION ===== */
 .top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary);
   color: white;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -47,7 +69,7 @@ body {
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: white;
+  letter-spacing: 0.5px;
 }
 
 .nav-links {
@@ -67,36 +89,22 @@ body {
 .nav-links a:hover,
 .nav-links a.active {
   color: white;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary);
 }
 
-.user-profile i {
-  font-size: 1.5rem;
+.user-profile {
   cursor: pointer;
+  transition: var(--transition);
 }
 
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+.user-profile:hover {
+  transform: scale(1.1);
 }
 
-/* Section Styling */
+/* ===== SECTION STYLES ===== */
 section {
   display: none;
   animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 section.active-section {
@@ -106,12 +114,55 @@ section.active-section {
 section h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--secondary-color);
+  color: var(--secondary);
   margin-bottom: 1.5rem;
   text-align: center;
+  position: relative;
 }
 
-/* Dashboard Section */
+section h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--primary);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== CARD COMPONENT ===== */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+/* ===== DASHBOARD COMPONENTS ===== */
 .metrics-overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -121,21 +172,21 @@ section h1 {
 
 .metric-card {
   background: white;
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
   display: flex;
   align-items: center;
   transition: var(--transition);
 }
 
 .metric-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
 .metric-icon {
-  background-color: rgba(79, 125, 249, 0.1);
+  background-color: var(--primary-light);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -143,10 +194,15 @@ section h1 {
   align-items: center;
   justify-content: center;
   margin-right: 1rem;
+  transition: var(--transition);
+}
+
+.metric-card:hover .metric-icon {
+  transform: scale(1.1);
 }
 
 .metric-icon i {
-  color: var(--primary-color);
+  color: var(--primary);
   font-size: 1.5rem;
 }
 
@@ -154,19 +210,19 @@ section h1 {
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
-  color: var(--gray-color);
+  color: var(--gray);
 }
 
 .metric-data p {
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--secondary-color);
+  color: var(--secondary);
   margin-bottom: 0.2rem;
 }
 
 .metric-data span {
   font-size: 0.85rem;
-  color: var(--gray-color);
+  color: var(--gray);
 }
 
 .charts-container {
@@ -178,47 +234,107 @@ section h1 {
 
 .chart-card {
   background: white;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius);
   padding: 1.5rem;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow);
+  min-height: 300px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
 .chart-card h3 {
   font-size: 1.2rem;
   font-weight: 700;
+  color: var(--secondary);
   margin-bottom: 1rem;
-  color: var(--secondary-color);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--light-gray);
 }
 
-.recommendations {
-  background: white;
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
+/* ===== FORM ELEMENTS ===== */
+.input-group {
+  margin-bottom: 1.2rem;
 }
 
-.recommendations h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--secondary-color);
-  display: flex;
-  align-items: center;
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--gray);
 }
 
-.recommendations h3 i {
-  color: var(--warning-color);
-  margin-right: 0.5rem;
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
 }
 
-#recommendations-content {
-  padding: 1rem;
-  background-color: var(--light-gray);
-  border-radius: var(--border-radius);
-  font-size: 0.95rem;
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 125, 249, 0.2);
 }
 
-/* Calculators Section */
+/* ===== BUTTON STYLES ===== */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 125, 249, 0.4);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: white;
+  box-shadow: var(--shadow-success);
+}
+
+.btn-success:hover {
+  background-color: var(--success-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* ===== CALCULATORS SECTION ===== */
 .calculator-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -231,7 +347,7 @@ section h1 {
   padding: 0.6rem 1.2rem;
   border: none;
   background-color: var(--light-gray);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -239,35 +355,26 @@ section h1 {
 
 .tab-btn:hover {
   background-color: #dde1e6;
+  transform: translateY(-2px);
 }
 
 .tab-btn.active {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   color: white;
-}
-
-.calculator-content {
-  background: white;
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow-btn);
 }
 
 .tab-content {
   display: none;
+  background: white;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
 }
 
 .tab-content.active {
   display: block;
   animation: fadeIn 0.3s ease;
-}
-
-.tab-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--secondary-color);
-  text-align: center;
 }
 
 .calculator-form {
@@ -277,121 +384,212 @@ section h1 {
   margin-bottom: 1.5rem;
 }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group label {
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: var(--gray-color);
-}
-
-.input-group input,
-.input-group select {
-  padding: 0.7rem 1rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  transition: var(--transition);
-}
-
-.input-group input:focus,
-.input-group select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(79, 125, 249, 0.2);
-}
-
-.calculate-btn {
-  padding: 0.8rem 1.5rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  grid-column: 1 / -1;
-  justify-self: center;
-  margin-top: 0.5rem;
-}
-
-.calculate-btn:hover {
-  background-color: #3a67e0;
-  transform: translateY(-2px);
-}
-
 .calculator-result {
   text-align: center;
   padding: 1.5rem;
-  background-color: var(--light-gray);
-  border-radius: var(--border-radius);
-  margin-top: 1.5rem;
-}
-
-.calculator-result h3 {
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-  color: var(--secondary-color);
-}
-
-.result-value {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.result-comment {
-  font-size: 1rem;
-  color: var(--gray-color);
-}
-
-.secondary-result {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #ddd;
-}
-
-.secondary-result h4 {
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-  color: var(--gray-color);
-}
-
-#idealweight-list {
-  list-style: none;
+  background: var(--gradient-card);
+  border-radius: var(--radius);
   margin-top: 1rem;
 }
 
-#idealweight-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px dashed #ddd;
-  display: flex;
-  justify-content: space-between;
+.result-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 1rem 0;
 }
 
-.female-only {
-  display: none;
+.result-comment {
+  font-size: 1.1rem;
+  color: var(--gray);
 }
 
-/* Water Calculator specific */
-.water-visual {
+.calculate-btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-btn);
+}
+
+.calculate-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 125, 249, 0.4);
+}
+
+/* ===== WELCOME COMPONENTS ===== */
+.welcome-message {
+  text-align: center;
+  padding: 2rem;
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.welcome-message i {
+  font-size: 2.5rem;
+  color: var(--success);
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+.welcome-message h3 {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 0.75rem;
+}
+
+.welcome-message p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.get-started-btn {
+  background-color: var(--success);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-success);
+  font-size: 1rem;
+}
+
+.get-started-btn:hover {
+  background-color: var(--success-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* Welcome banner for first-time users */
+.welcome-banner {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-top: 1.5rem;
+  padding: 15px 20px;
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  margin-bottom: 25px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.8s ease-in-out;
+  position: relative;
 }
 
+.welcome-banner i.fa-hand-sparkles {
+  font-size: 2rem;
+  color: var(--success);
+  margin-right: 15px;
+  animation: sparkle 2s infinite;
+}
+
+.welcome-banner .welcome-message {
+  flex: 1;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  animation: none;
+  background: none;
+}
+
+.welcome-banner h3 {
+  font-size: 1.3rem;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
+.welcome-banner p {
+  margin: 0;
+  color: var(--gray);
+}
+
+.welcome-banner .dismiss-btn {
+  background: transparent;
+  border: none;
+  color: #757575;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: color 0.3s;
+}
+
+.welcome-banner .dismiss-btn:hover {
+  color: #333;
+}
+
+/* No Data Message Styling */
+.no-data-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: var(--radius);
+  margin: 15px 0;
+  border: 1px dashed var(--light-gray);
+}
+
+.no-data-message i {
+  font-size: 2rem;
+  color: var(--gray);
+  margin-bottom: 10px;
+}
+
+.no-data-message p {
+  margin-bottom: 15px;
+  color: var(--gray);
+}
+
+.calculate-now-btn {
+  background-color: var(--success);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  box-shadow: var(--shadow-success);
+}
+
+.calculate-now-btn:hover {
+  background-color: var(--success-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+/* Water Calculator Enhancements */
 .water-bottle {
-  width: 80px;
-  height: 200px;
-  border: 3px solid var(--primary-color);
-  border-radius: 10px 10px 20px 20px;
   position: relative;
+  width: 100px;
+  height: 220px;
+  border: 4px solid var(--primary);
+  border-radius: 15px 15px 25px 25px;
   overflow: hidden;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 5px 15px rgba(79, 125, 249, 0.2);
+}
+
+.water-bottle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px 10px 0 0;
 }
 
 .water-fill {
@@ -400,461 +598,64 @@ section h1 {
   left: 0;
   width: 100%;
   height: 0%;
-  background-color: rgba(79, 125, 249, 0.7);
-  transition: height 1s ease;
+  background: linear-gradient(to bottom, rgba(79, 125, 249, 0.7), rgba(79, 125, 249, 0.9));
+  transition: height 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.water-glasses {
-  margin-top: 1rem;
-  font-weight: 600;
-}
-
-/* Daily Log Section */
-.daily-log-date {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.daily-log-date button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.daily-log-date input {
-  margin: 0 1rem;
-  padding: 0.7rem 1rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  text-align: center;
-}
-
-.log-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.log-card {
-  background: white;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-}
-
-.log-header {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-}
-
-.log-header i {
-  margin-right: 0.7rem;
-  font-size: 1.2rem;
-}
-
-.log-header h3 {
-  font-weight: 700;
-}
-
-.log-content {
-  padding: 1.5rem;
-}
-
-.save-btn {
-  padding: 0.6rem 1.2rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  margin-top: 1rem;
-}
-
-.save-btn:hover {
-  background-color: #3a67e0;
-}
-
-/* Water Tracker */
-.water-progress {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.water-target {
-  font-size: 0.9rem;
-  color: var(--gray-color);
-  margin-bottom: 0.5rem;
-}
-
-.water-progress-bar {
-  height: 12px;
-  background-color: var(--light-gray);
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.water-progress-fill {
-  height: 100%;
-  background-color: var(--primary-color);
-  border-radius: 6px;
-  transition: width 0.5s ease;
-}
-
-.water-amount {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.water-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.water-add {
-  padding: 0.5rem 1rem;
-  background-color: rgba(79, 125, 249, 0.1);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.water-add:hover {
-  background-color: rgba(79, 125, 249, 0.2);
-}
-
-#custom-water {
-  padding: 0.5rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  width: 100px;
-  margin-right: 0.5rem;
-}
-
-/* Meals Tracker */
-.meal-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.meal-tab {
-  padding: 0.4rem 0.8rem;
-  background-color: var(--light-gray);
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.meal-tab:hover {
-  background-color: #dde1e6;
-}
-
-.meal-tab.active {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-#meal-description {
+.water-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 0.7rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  resize: vertical;
-  min-height: 80px;
-  margin-bottom: 0.7rem;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
 }
 
-.meal-calories {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.7rem;
-}
-
-.meal-calories label {
-  margin-right: 0.7rem;
-  font-weight: 600;
-}
-
-.meal-calories input {
-  padding: 0.5rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  width: 100px;
-}
-
-.meals-summary, .exercise-summary {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--light-gray);
-}
-
-.meals-summary h4, .exercise-summary h4 {
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-}
-
-#meals-list, #exercises-list {
-  list-style: none;
-  margin-bottom: 1rem;
-}
-
-#meals-list li, #exercises-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px dashed #ddd;
-  display: flex;
-  justify-content: space-between;
-}
-
-.total-calories, .total-exercise {
-  font-weight: 600;
-  text-align: right;
-}
-
-/* Exercise Tracker */
-.exercise-details {
-  display: flex;
-  gap: 0.7rem;
-  margin: 0.7rem 0;
-}
-
-.exercise-details input {
-  padding: 0.7rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  flex: 1;
-}
-
-/* Sleep Tracker */
-.sleep-times {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.sleep-time {
-  flex: 1;
-}
-
-.sleep-time label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.sleep-time input {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-}
-
-.sleep-quality {
-  margin-bottom: 1rem;
-}
-
-.sleep-quality label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.sleep-quality select {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-}
-
-#sleep-result {
-  margin-top: 1rem;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* Nutrition Section */
-.nutrition-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 1.5rem;
-}
-
-.nutrition-goals, .meal-planner {
-  background: white;
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-}
-
-.nutrition-goals h3, .meal-planner h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--secondary-color);
-}
-
-.goal-card {
-  background-color: var(--light-gray);
-  border-radius: var(--border-radius);
-  padding: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.goal-card h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--gray-color);
-}
-
-.goal-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.7rem;
-  font-weight: 600;
-}
-
-.goal-selector h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-  color: var(--gray-color);
-}
-
-.goal-selector select {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid var(--light-gray);
-  border-radius: var(--border-radius);
-  margin-bottom: 0.7rem;
-}
-
-.meal-preferences h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-  color: var(--gray-color);
-}
-
-.preferences-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.7rem;
-  margin-bottom: 1.5rem;
-}
-
-.preferences-options label {
-  display: flex;
-  align-items: center;
-}
-
-.preferences-options input {
-  margin-right: 0.5rem;
-}
-
-.primary-btn {
-  padding: 0.8rem 1.5rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.primary-btn:hover {
-  background-color: #3a67e0;
-  transform: translateY(-2px);
-}
-
-.meal-day-selector {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  justify-content: center;
-}
-
-.meal-day {
-  padding: 0.5rem 1rem;
-  background-color: var(--light-gray);
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.meal-day:hover {
-  background-color: #dde1e6;
-}
-
-.meal-day.active {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.day-meal-plan {
-  display: none;
-}
-
-.day-meal-plan.active {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
+/* Meal Plan Cards Enhancement */
 .plan-meal-card {
-  background-color: var(--light-gray);
-  border-radius: var(--border-radius);
-  padding: 1rem;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.plan-meal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
 .plan-meal-card h4 {
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-  color: var(--secondary-color);
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.5rem;
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1rem;
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 .plan-meal-content {
-  font-size: 0.95rem;
+  padding: 1rem;
+  min-height: 100px;
 }
 
-/* Responsive adjustments */
+/* Animations */
+@keyframes sparkle {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.1) rotate(5deg); opacity: 0.9; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Enhanced Responsive Design */
 @media (max-width: 992px) {
   .nutrition-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 0.5rem;
-  }
-  
-  .metrics-overview {
     grid-template-columns: 1fr;
   }
   
@@ -863,32 +664,174 @@ section h1 {
   }
   
   .calculator-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav {
+    padding: 0.8rem 1rem;
   }
   
   .nav-links {
-    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background: var(--secondary);
+    padding: 0.8rem 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 99;
   }
   
-  .top-nav {
-    justify-content: space-between;
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    text-align: center;
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
-  .mobile-menu-btn {
-    display: block;
+  .nav-links a::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .nav-links a:nth-child(1)::before { content: '\f015'; } /* Home/Dashboard */
+  .nav-links a:nth-child(2)::before { content: '\f1ec'; } /* Calculator */
+  .nav-links a:nth-child(3)::before { content: '\f073'; } /* Daily Log */
+  .nav-links a:nth-child(4)::before { content: '\f787'; } /* Nutrition */
+  
+  .nav-links a.active {
+    color: var(--primary);
+    border-bottom: none;
+  }
+  
+  .container {
+    margin: 1rem auto 5rem;
+  }
+  
+  section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .metric-card {
+    padding: 1rem;
+  }
+  
+  .metric-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .metric-data p {
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 576px) {
-  .log-container {
-    grid-template-columns: 1fr;
-  }
-  
+  .log-container, 
   .day-meal-plan.active {
     grid-template-columns: 1fr;
   }
   
   section h1 {
     font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 0.8rem;
+  }
+  
+  .calculator-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .welcome-message h3 {
+    font-size: 1.3rem;
+  }
+  
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .result-value {
+    font-size: 1.8rem;
+  }
+  
+  .metric-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .metric-icon {
+    margin: 0 auto 0.8rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+  }
+  
+  .top-nav, 
+  .nav-links,
+  .btn,
+  .calculate-btn,
+  .get-started-btn {
+    display: none;
+  }
+  
+  .container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  .card,
+  .metric-card,
+  .chart-card,
+  .tab-content {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  section h1::after {
+    background: #000;
+  }
+}
+
+/* Accessibility Enhancements */
+:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Dark mode support (for future implementation) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light: #1a1a1a;
+    --dark: #f8f9fa;
+    --light-gray: #333;
   }
 }

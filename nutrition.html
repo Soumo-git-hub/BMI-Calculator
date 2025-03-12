@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition - HealthTrack</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="bmi.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-heartbeat"></i>
+      <h1>HealthTrack</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="bmi.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="calculators.html"><i class="fas fa-calculator"></i> Calculators</a></li>
+        <li><a href="daily-log.html"><i class="fas fa-calendar-day"></i> Daily Log</a></li>
+        <li class="active"><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+        <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <span id="user-name">User</span>
+      <button id="logout-btn" class="btn btn-outline"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="active-section">
+      <h1>Nutrition Tracker</h1>
+      <p class="section-description">Track your nutrition and get personalized meal plans</p>
+
+      <div class="calculator-tabs nutrition-tabs">
+        <button class="tab-btn active" data-tab="tracker">Calorie Tracker</button>
+        <button class="tab-btn" data-tab="meal-plan">Meal Planner</button>
+        <button class="tab-btn" data-tab="nutrition-info">Nutrition Info</button>
+      </div>
+
+      <div class="tab-content active" id="tracker">
+        <div class="date-selector">
+          <button id="prev-day-nutrition" class="btn btn-outline"><i class="fas fa-chevron-left"></i></button>
+          <h3 id="current-date-nutrition">Today, June 10, 2023</h3>
+          <button id="next-day-nutrition" class="btn btn-outline"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="metrics-overview">
+          <div class="metric-card">
+            <div class="metric-icon">
+              <i class="fas fa-fire"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Calories</h3>
+              <p id="calories-consumed">0</p>
+              <span>consumed today</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">
+              <i class="fas fa-drumstick-bite"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Protein</h3>
+              <p><span id="protein-value">0</span>g / <span id="protein-goal">0</span>g</p>
+              <div class="progress-bar">
+                <div id="protein-progress" class="progress" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">
+              <i class="fas fa-bread-slice"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Carbs</h3>
+              <p><span id="carbs-value">0</span>g / <span id="carbs-goal">0</span>g</p>
+              <div class="progress-bar">
+                <div id="carbs-progress" class="progress" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">
+              <i class="fas fa-cheese"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Fat</h3>
+              <p><span id="fat-value">0</span>g / <span id="fat-goal">0</span>g</p>
+              <div class="progress-bar">
+                <div id="fat-progress" class="progress" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card meal-log">
+          <div class="card-header">
+            <h2 class="card-title">Food Log</h2>
+          </div>
+          <div class="meal-section" data-meal="breakfast">
+            <div class="meal-header">
+              <h4><i class="fas fa-sun"></i> Breakfast</h4>
+              <button class="add-food-btn btn btn-outline" data-meal="breakfast"><i class="fas fa-plus"></i> Add Food</button>
+            </div>
+            <div class="meal-items" id="breakfast-items">
+              <p class="empty-meal">No foods logged yet</p>
+            </div>
+          </div>
+
+          <div class="meal-section" data-meal="lunch">
+            <div class="meal-header">
+              <h4><i class="fas fa-cloud-sun"></i> Lunch</h4>
+              <button class="add-food-btn btn btn-outline" data-meal="lunch"><i class="fas fa-plus"></i> Add Food</button>
+            </div>
+            <div class="meal-items" id="lunch-items">
+              <p class="empty-meal">No foods logged yet</p>
+            </div>
+          </div>
+
+          <div class="meal-section" data-meal="dinner">
+            <div class="meal-header">
+              <h4><i class="fas fa-moon"></i> Dinner</h4>
+              <button class="add-food-btn btn btn-outline" data-meal="dinner"><i class="fas fa-plus"></i> Add Food</button>
+            </div>
+            <div class="meal-items" id="dinner-items">
+              <p class="empty-meal">No foods logged yet</p>
+            </div>
+          </div>
+
+          <div class="meal-section" data-meal="snacks">
+            <div class="meal-header">
+              <h4><i class="fas fa-cookie"></i> Snacks</h4>
+              <button class="add-food-btn btn btn-outline" data-meal="snacks"><i class="fas fa-plus"></i> Add Food</button>
+            </div>
+            <div class="meal-items" id="snacks-items">
+              <p class="empty-meal">No foods logged yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meal Planner Tab -->
+      <div class="tab-content" id="meal-plan">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Generate Your Personalized Meal Plan</h2>
+          </div>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="meal-plan-goal">Goal:</label>
+              <select id="meal-plan-goal" class="form-control">
+                <option value="weight-loss">Weight Loss</option>
+                <option value="weight-maintenance">Weight Maintenance</option>
+                <option value="weight-gain">Weight Gain</option>
+                <option value="muscle-building">Muscle Building</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="meal-plan-diet">Diet Type:</label>
+              <select id="meal-plan-diet" class="form-control">
+                <option value="regular">Regular</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="keto">Keto</option>
+                <option value="paleo">Paleo</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="meal-plan-allergies">Allergies/Restrictions:</label>
+              <input type="text" id="meal-plan-allergies" class="form-control" placeholder="e.g., nuts, dairy, gluten (comma separated)">
+            </div>
+          </div>
+          <button id="generate-meal-plan" class="btn btn-primary">Generate Meal Plan</button>
+        </div>
+        <div id="meal-plan-container" class="meal-plan-container">
+          <!-- Meal plan will be generated here -->
+        </div>
+      </div>
+
+      <!-- Nutrition Info Tab -->
+      <div class="tab-content" id="nutrition-info">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Food Nutrition Database</h2>
+          </div>
+          <div class="nutrition-search">
+            <div class="input-group">
+              <input type="text" id="food-search" class="form-control" placeholder="Search for a food...">
+              <button id="search-btn" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="search-results" class="search-results">
+              <!-- Search results will appear here -->
+            </div>
+          </div>
+        </div>
+        <div class="card nutrition-info-container">
+          <div class="card-header">
+            <h2 class="card-title">Nutrition Information</h2>
+          </div>
+          <div id="nutrition-details" class="nutrition-details">
+            <p class="empty-state">Search for a food to see nutrition details</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Food Modal -->
+  <div id="add-food-modal" class="modal">
+    <div class="modal-content card">
+      <div class="card-header">
+        <h3 class="card-title">Add Food to <span id="meal-title">Breakfast</span></h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="food-search-section">
+          <div class="input-group">
+            <input type="text" id="modal-food-search" class="form-control" placeholder="Search for a food...">
+            <button id="modal-search-btn" class="btn btn-primary">Search</button>
+          </div>
+          <div id="modal-search-results" class="modal-search-results">
+            <!-- Search results will appear here -->
+          </div>
+        </div>
+        <div class="custom-food-section">
+          <h4>Or add custom food:</h4>
+          <div class="input-group">
+            <label for="food-name">Food Name:</label>
+            <input type="text" id="food-name" class="form-control" placeholder="e.g., Chicken Breast">
+          </div>
+          <div class="input-group">
+            <label for="food-calories">Calories:</label>
+            <input type="number" id="food-calories" class="form-control" placeholder="kcal">
+          </div>
+          <div class="calculator-form">
+            <div class="input-group">
+              <label for="food-protein">Protein (g):</label>
+              <input type="number" id="food-protein" class="form-control" placeholder="g">
+            </div>
+            <div class="input-group">
+              <label for="food-carbs">Carbs (g):</label>
+              <input type="number" id="food-carbs" class="form-control" placeholder="g">
+            </div>
+            <div class="input-group">
+              <label for="food-fat">Fat (g):</label>
+              <input type="number" id="food-fat" class="form-control" placeholder="g">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="food-serving">Serving Size:</label>
+            <input type="text" id="food-serving" class="form-control" placeholder="e.g., 100g or 1 cup">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="add-food-btn" class="btn btn-primary">Add Food</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="nutrition.js"></script>
+  <script src="bmi.js"></script>
+</body>
+</html>

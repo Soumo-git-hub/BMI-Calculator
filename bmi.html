@@ -11,10 +11,10 @@
   <nav class="top-nav">
     <div class="logo">HealthTrack</div>
     <div class="nav-links">
-      <a href="#dashboard" class="active">Dashboard</a>
-      <a href="#calculators">Calculators</a>
-      <a href="#daily-log">Daily Log</a>
-      <a href="#nutrition">Nutrition</a>
+      <a href="bmi.html" class="active">Dashboard</a>
+      <a href="calculators.html">Calculators</a>
+      <a href="daily-log.html">Daily Log</a>
+      <a href="nutrition.html">Nutrition</a>
     </div>
     <div class="user-profile">
       <i class="fas fa-user-circle"></i>
@@ -158,10 +158,10 @@
               <label for="activity-level">Activity Level:</label>
               <select id="activity-level">
                 <option value="1.2">Sedentary (little or no exercise)</option>
-                <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
-                <option value="1.55">Moderately active (moderate exercise 3-5 days/week)</option>
-                <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
-                <option value="1.9">Extra active (very hard exercise & physical job)</option>
+                <option value="1.375">Light (exercise 1-3 days/week)</option>
+                <option value="1.55">Moderate (exercise 3-5 days/week)</option>
+                <option value="1.725">Active (exercise 6-7 days/week)</option>
+                <option value="1.9">Very Active (hard exercise daily)</option>
               </select>
             </div>
             <div class="input-group">
@@ -177,11 +177,9 @@
             <h3>Your BMR:</h3>
             <div id="bmr-result" class="result-value">0000</div>
             <p>calories/day at rest</p>
-            <div id="tdee-result" class="secondary-result">
-              <h4>Daily Calorie Needs (TDEE):</h4>
-              <div id="tdee-value">0000</div>
-              <p>calories/day with your activity level</p>
-            </div>
+            <h3>Your TDEE:</h3>
+            <div id="tdee-value" class="result-value">0000</div>
+            <p>calories/day with activity</p>
           </div>
         </div>
         
@@ -209,22 +207,22 @@
               </select>
             </div>
             <div class="input-group">
-              <label for="bf-neck">Neck Circumference:</label>
-              <input type="number" id="bf-neck" placeholder="Measure around neck">
+              <label for="bf-neck">Neck:</label>
+              <input type="number" id="bf-neck" placeholder="Neck circumference">
             </div>
             <div class="input-group">
-              <label for="bf-waist">Waist Circumference:</label>
-              <input type="number" id="bf-waist" placeholder="Measure around waist">
+              <label for="bf-waist">Waist:</label>
+              <input type="number" id="bf-waist" placeholder="Waist circumference">
             </div>
             <div class="input-group female-only">
-              <label for="bf-hip">Hip Circumference:</label>
-              <input type="number" id="bf-hip" placeholder="Measure around hips">
+              <label for="bf-hip">Hip:</label>
+              <input type="number" id="bf-hip" placeholder="Hip circumference">
             </div>
             <div class="input-group">
               <label for="bf-unit">Unit:</label>
               <select id="bf-unit">
-                <option value="metric">Metric (cm)</option>
-                <option value="imperial">Imperial (in)</option>
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
               </select>
             </div>
             <button id="calculate-bodyfat" class="calculate-btn">Calculate Body Fat</button>
@@ -254,19 +252,19 @@
             <div class="input-group">
               <label for="iw-unit">Unit:</label>
               <select id="iw-unit">
-                <option value="metric">Metric (cm)</option>
-                <option value="imperial">Imperial (in)</option>
+                <option value="metric">Metric (kg/cm)</option>
+                <option value="imperial">Imperial (lbs/in)</option>
               </select>
             </div>
             <button id="calculate-idealweight" class="calculate-btn">Calculate Ideal Weight</button>
           </div>
           <div class="calculator-result">
-            <h3>Your Ideal Weight Range:</h3>
-            <div id="idealweight-result" class="result-value">00.0 - 00.0</div>
-            <div id="idealweight-formulas" class="secondary-result">
-              <h4>Based on different formulas:</h4>
-              <ul id="idealweight-list"></ul>
-            </div>
+            <h3>Your Ideal Weight (Average):</h3>
+            <div id="idealweight-result" class="result-value">00.0</div>
+            <h4>Based on different formulas:</h4>
+            <ul id="idealweight-list" class="formula-list">
+              <!-- Formula results will be added here -->
+            </ul>
           </div>
         </div>
         
@@ -282,10 +280,10 @@
               <label for="water-activity">Activity Level:</label>
               <select id="water-activity">
                 <option value="sedentary">Sedentary</option>
-                <option value="light">Light Exercise</option>
-                <option value="moderate">Moderate Exercise</option>
-                <option value="active">Active Exercise</option>
-                <option value="very-active">Very Active Exercise</option>
+                <option value="light">Light Activity</option>
+                <option value="moderate">Moderate Activity</option>
+                <option value="active">Active</option>
+                <option value="very-active">Very Active</option>
               </select>
             </div>
             <div class="input-group">
@@ -304,19 +302,17 @@
                 <option value="imperial">Imperial (lbs)</option>
               </select>
             </div>
-            <button id="calculate-water" class="calculate-btn">Calculate Water Needs</button>
+            <button id="calculate-water" class="calculate-btn">Calculate Water Intake</button>
           </div>
           <div class="calculator-result">
             <h3>Your Daily Water Intake:</h3>
             <div id="water-result" class="result-value">0000 ml</div>
             <p id="water-comment" class="result-comment"></p>
-            <div class="water-visual">
+            <div class="water-visualization">
               <div class="water-bottle">
                 <div class="water-fill"></div>
               </div>
-              <div class="water-glasses">
-                <p><span id="water-glasses-count">0</span> glasses (250ml each)</p>
-              </div>
+              <p><span id="water-glasses-count">0</span> glasses (250ml each)</p>
             </div>
           </div>
         </div>
@@ -334,126 +330,97 @@
       </div>
       
       <div class="log-container">
+        <!-- Add log cards for tracking daily metrics -->
         <div class="log-card">
-          <div class="log-header">
+          <div class="log-card-header">
             <i class="fas fa-weight"></i>
             <h3>Weight</h3>
           </div>
-          <div class="log-content">
-            <input type="number" id="log-weight" placeholder="Enter today's weight">
-            <select id="log-weight-unit">
-              <option value="kg">kg</option>
-              <option value="lbs">lbs</option>
-            </select>
-            <button id="save-weight" class="save-btn">Save</button>
+          <div class="log-card-body">
+            <div class="input-group">
+              <input type="number" id="log-weight" placeholder="Enter weight">
+              <select id="log-weight-unit">
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+              </select>
+            </div>
+            <button class="log-save-btn" data-log="weight">Save</button>
+          </div>
+          <div class="log-history">
+            <h4>History</h4>
+            <div id="weight-history" class="history-list">
+              <!-- Weight history will be displayed here -->
+              <p class="no-data">No data recorded yet</p>
+            </div>
           </div>
         </div>
         
         <div class="log-card">
-          <div class="log-header">
+          <div class="log-card-header">
+            <i class="fas fa-utensils"></i>
+            <h3>Calories</h3>
+          </div>
+          <div class="log-card-body">
+            <div class="input-group">
+              <input type="number" id="log-calories" placeholder="Enter calories">
+            </div>
+            <button class="log-save-btn" data-log="calories">Save</button>
+          </div>
+          <div class="log-history">
+            <h4>History</h4>
+            <div id="calories-history" class="history-list">
+              <!-- Calories history will be displayed here -->
+              <p class="no-data">No data recorded yet</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="log-card">
+          <div class="log-card-header">
             <i class="fas fa-tint"></i>
             <h3>Water Intake</h3>
           </div>
-          <div class="log-content">
-            <div class="water-progress">
-              <div class="water-target">Target: <span id="water-target">2500</span> ml</div>
-              <div class="water-progress-bar">
-                <div class="water-progress-fill" style="width: 0%"></div>
-              </div>
-              <div class="water-amount">0 / <span id="water-goal">2500</span> ml</div>
+          <div class="log-card-body">
+            <div class="input-group">
+              <input type="number" id="log-water" placeholder="Enter water intake">
+              <select id="log-water-unit">
+                <option value="ml">ml</option>
+                <option value="oz">oz</option>
+              </select>
             </div>
-            <div class="water-buttons">
-              <button class="water-add" data-amount="250">+250ml</button>
-              <button class="water-add" data-amount="500">+500ml</button>
-              <input type="number" id="custom-water" placeholder="Custom amount">
-              <button id="add-custom-water">Add</button>
+            <button class="log-save-btn" data-log="water">Save</button>
+          </div>
+          <div class="log-history">
+            <h4>History</h4>
+            <div id="water-history" class="history-list">
+              <!-- Water history will be displayed here -->
+              <p class="no-data">No data recorded yet</p>
             </div>
           </div>
         </div>
         
         <div class="log-card">
-          <div class="log-header">
-            <i class="fas fa-utensils"></i>
-            <h3>Meals</h3>
-          </div>
-          <div class="log-content">
-            <div class="meal-tabs">
-              <button class="meal-tab active" data-meal="breakfast">Breakfast</button>
-              <button class="meal-tab" data-meal="lunch">Lunch</button>
-              <button class="meal-tab" data-meal="dinner">Dinner</button>
-              <button class="meal-tab" data-meal="snacks">Snacks</button>
-            </div>
-            <div class="meal-input">
-              <textarea id="meal-description" placeholder="Describe what you ate..."></textarea>
-              <div class="meal-calories">
-                <label for="meal-calories">Calories (est.):</label>
-                <input type="number" id="meal-calories" placeholder="Calories">
-              </div>
-              <button id="save-meal" class="save-btn">Save Meal</button>
-            </div>
-            <div class="meals-summary">
-              <h4>Today's Meals</h4>
-              <ul id="meals-list"></ul>
-              <div class="total-calories">
-                <span>Total calories: </span>
-                <span id="total-calories">0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="log-card">
-          <div class="log-header">
+          <div class="log-card-header">
             <i class="fas fa-running"></i>
             <h3>Exercise</h3>
           </div>
-          <div class="log-content">
-            <input type="text" id="exercise-type" placeholder="Type of exercise">
-            <div class="exercise-details">
-              <input type="number" id="exercise-duration" placeholder="Duration (mins)">
-              <input type="number" id="exercise-calories" placeholder="Calories burned (est.)">
+          <div class="log-card-body">
+            <div class="input-group">
+              <input type="text" id="log-exercise-type" placeholder="Exercise type">
             </div>
-            <button id="save-exercise" class="save-btn">Save Exercise</button>
-            <div class="exercise-summary">
-              <h4>Today's Exercises</h4>
-              <ul id="exercises-list"></ul>
-              <div class="total-exercise">
-                <span>Total calories burned: </span>
-                <span id="total-exercise-calories">0</span>
-              </div>
+            <div class="input-group">
+              <input type="number" id="log-exercise-duration" placeholder="Duration (min)">
             </div>
+            <div class="input-group">
+              <input type="number" id="log-exercise-calories" placeholder="Calories burned">
+            </div>
+            <button class="log-save-btn" data-log="exercise">Save</button>
           </div>
-        </div>
-        
-        <div class="log-card">
-          <div class="log-header">
-            <i class="fas fa-bed"></i>
-            <h3>Sleep</h3>
-          </div>
-          <div class="log-content">
-            <div class="sleep-times">
-              <div class="sleep-time">
-                <label for="sleep-start">Bedtime:</label>
-                <input type="time" id="sleep-start">
-              </div>
-              <div class="sleep-time">
-                <label for="sleep-end">Wake time:</label>
-                <input type="time" id="sleep-end">
-              </div>
-            </div>
-            <div class="sleep-quality">
-              <label for="sleep-quality">Sleep Quality:</label>
-              <select id="sleep-quality">
-                <option value="5">Excellent</option>
-                <option value="4">Good</option>
-                <option value="3">Fair</option>
-                <option value="2">Poor</option>
-                <option value="1">Very Poor</option>
-              </select>
-            </div>
-            <button id="save-sleep" class="save-btn">Save Sleep</button>
-            <div id="sleep-result">
-              <p>Sleep duration: <span id="sleep-duration">0h 0m</span></p>
+          <div class="log-history">
+            <h4>History</h4>
+            <div id="exercise-history" class="history-list">
+              <!-- Exercise history will be displayed here -->
+              <p class="no-data">No data recorded yet</p>
             </div>
           </div>
         </div>
@@ -465,68 +432,43 @@
       <h1>Nutrition Planner</h1>
       
       <div class="nutrition-container">
-        <div class="nutrition-goals">
-          <h3>Your Nutrition Goals</h3>
-          <div class="goal-card">
-            <h4>Based on your profile:</h4>
-            <div class="goal-item">
-              <span>Daily Calories:</span>
-              <span id="nutr-calories">0000</span>
+        <div class="meal-plan-generator">
+          <h2>Generate Meal Plan</h2>
+          <div class="meal-plan-form">
+            <div class="input-group">
+              <label for="calorie-goal">Daily Calorie Goal:</label>
+              <input type="number" id="calorie-goal" placeholder="Enter calories">
             </div>
-            <div class="goal-item">
-              <span>Protein:</span>
-              <span id="nutr-protein">000g</span>
+            <div class="input-group">
+              <label for="diet-preference">Diet Preference:</label>
+              <select id="diet-preference">
+                <option value="balanced">Balanced</option>
+                <option value="low-carb">Low Carb</option>
+                <option value="high-protein">High Protein</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+              </select>
             </div>
-            <div class="goal-item">
-              <span>Carbs:</span>
-              <span id="nutr-carbs">000g</span>
+            <div class="input-group">
+              <label for="exclude-ingredients">Exclude Ingredients:</label>
+              <input type="text" id="exclude-ingredients" placeholder="e.g., nuts, shellfish">
             </div>
-            <div class="goal-item">
-              <span>Fat:</span>
-              <span id="nutr-fat">000g</span>
-            </div>
-          </div>
-          <div class="goal-selector">
-            <h4>Adjust your goal:</h4>
-            <select id="nutrition-goal">
-              <option value="maintain">Maintain Weight</option>
-              <option value="lose">Lose Weight</option>
-              <option value="gain">Gain Weight</option>
-            </select>
-            <select id="goal-intensity">
-              <option value="mild">Mild (±250 calories)</option>
-              <option value="moderate">Moderate (±500 calories)</option>
-              <option value="aggressive">Aggressive (±750 calories)</option>
-            </select>
+            <button id="generate-meal-plan" class="generate-btn">Generate Meal Plan</button>
           </div>
         </div>
         
-        <div class="meal-planner">
-          <h3>Meal Suggestions</h3>
-          <div class="meal-preferences">
-            <h4>Dietary Preferences:</h4>
-            <div class="preferences-options">
-              <label><input type="checkbox" id="pref-vegetarian"> Vegetarian</label>
-              <label><input type="checkbox" id="pref-vegan"> Vegan</label>
-              <label><input type="checkbox" id="pref-gluten-free"> Gluten-Free</label>
-              <label><input type="checkbox" id="pref-dairy-free"> Dairy-Free</label>
-              <label><input type="checkbox" id="pref-low-carb"> Low-Carb</label>
-              <label><input type="checkbox" id="pref-high-protein"> High-Protein</label>
-            </div>
-            <button id="generate-meal-plan" class="primary-btn">Generate Meal Plan</button>
+        <div class="meal-plan-display">
+          <div class="meal-plan-tabs">
+            <button class="day-tab active" data-day="monday">Mon</button>
+            <button class="day-tab" data-day="tuesday">Tue</button>
+            <button class="day-tab" data-day="wednesday">Wed</button>
+            <button class="day-tab" data-day="thursday">Thu</button>
+            <button class="day-tab" data-day="friday">Fri</button>
+            <button class="day-tab" data-day="saturday">Sat</button>
+            <button class="day-tab" data-day="sunday">Sun</button>
           </div>
           
-          <div class="meal-plan-result">
-            <div class="meal-day-selector">
-              <button class="meal-day active" data-day="monday">Mon</button>
-              <button class="meal-day" data-day="tuesday">Tue</button>
-              <button class="meal-day" data-day="wednesday">Wed</button>
-              <button class="meal-day" data-day="thursday">Thu</button>
-              <button class="meal-day" data-day="friday">Fri</button>
-              <button class="meal-day" data-day="saturday">Sat</button>
-              <button class="meal-day" data-day="sunday">Sun</button>
-            </div>
-            
+          <div class="meal-plan-content">
             <div class="day-meal-plan active" id="monday-plan">
               <div class="plan-meal-card">
                 <h4>Breakfast</h4>
@@ -554,11 +496,73 @@
               </div>
             </div>
             
-            <!-- Repeat similar structure for other days -->
             <div class="day-meal-plan" id="tuesday-plan">
-              <!-- Tuesday meals -->
+              <div class="plan-meal-card">
+                <h4>Breakfast</h4>
+                <div class="plan-meal-content" id="tuesday-breakfast">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Lunch</h4>
+                <div class="plan-meal-content" id="tuesday-lunch">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Dinner</h4>
+                <div class="plan-meal-content" id="tuesday-dinner">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Snacks</h4>
+                <div class="plan-meal-content" id="tuesday-snacks">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
             </div>
-            <!-- Other days -->
+            
+            <div class="day-meal-plan" id="wednesday-plan">
+              <div class="plan-meal-card">
+                <h4>Breakfast</h4>
+                <div class="plan-meal-content" id="wednesday-breakfast">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Lunch</h4>
+                <div class="plan-meal-content" id="wednesday-lunch">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Dinner</h4>
+                <div class="plan-meal-content" id="wednesday-dinner">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+              <div class="plan-meal-card">
+                <h4>Snacks</h4>
+                <div class="plan-meal-content" id="wednesday-snacks">
+                  <p>Generate a meal plan to see suggestions</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Add the remaining days with the same structure -->
+            <div class="day-meal-plan" id="thursday-plan">
+              <!-- Similar structure for Thursday -->
+            </div>
+            <div class="day-meal-plan" id="friday-plan">
+              <!-- Similar structure for Friday -->
+            </div>
+            <div class="day-meal-plan" id="saturday-plan">
+              <!-- Similar structure for Saturday -->
+            </div>
+            <div class="day-meal-plan" id="sunday-plan">
+              <!-- Similar structure for Sunday -->
+            </div>
           </div>
         </div>
       </div>
@@ -567,5 +571,566 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
   <script src="bmi.js"></script>
+  <script>
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+      const weightChartCtx = document.getElementById('weightChart').getContext('2d');
+      const healthChartCtx = document.getElementById('healthChart').getContext('2d');
+      
+      // Get current user
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+      
+      // Check if user has data
+      const hasUserData = currentUser.id ? 
+        localStorage.getItem(`user_${currentUser.id}_hasData`) === 'true' : false;
+      
+      // Check if this is the first login
+      const isFirstLogin = checkIfFirstLogin();
+      
+      if (hasUserData) {
+        // Update dashboard charts
+        updateDashboardCharts();
+      } else {
+        // Display "No Data" message in charts
+        displayNoDataMessage(weightChartCtx, 'No weight data available');
+        displayNoDataMessage(healthChartCtx, 'No body fat data available');
+        
+        // Show different message based on whether it's first login or not
+        if (isFirstLogin) {
+          // First-time user welcome message
+          document.getElementById('recommendations-content').innerHTML = 
+            '<div class="welcome-message">' +
+            '<i class="fas fa-hand-sparkles"></i>' +
+            '<h3>Welcome to HealthTrack!</h3>' +
+            '<p>Let\'s get started by calculating your first BMI to unlock personalized health insights and recommendations.</p>' +
+            '<button class="get-started-btn" onclick="navigateToCalculator()">Get Started</button>' +
+            '</div>';
+        } else {
+          showNoDataMessage();
+        }
+      }
+    });
+    
+    // Function to update dashboard charts
+    function updateDashboardCharts() {
+      const weightChartCtx = document.getElementById('weightChart');
+      const healthChartCtx = document.getElementById('healthChart');
+      
+      if (!weightChartCtx || !healthChartCtx) return;
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+      if (!currentUser.id) return;
+      
+      // Get weight data
+      const weightData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_weight`) || '[]');
+      
+      // Get BMI data
+      const bmiData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_bmi`) || '[]');
+      
+      // Get body fat data
+      const bodyFatData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_bodyfat`) || '[]');
+      
+      // Update dashboard metrics with latest values
+      if (weightData.length > 0) {
+        const latestWeight = weightData[weightData.length - 1];
+        const dashboardWeight = document.getElementById('dashboard-weight');
+        if (dashboardWeight) {
+          dashboardWeight.textContent = parseFloat(latestWeight.value).toFixed(1);
+        }
+      }
+      
+      if (bmiData.length > 0) {
+        const latestBMI = bmiData[bmiData.length - 1];
+        const dashboardBMI = document.getElementById('dashboard-bmi');
+        const bmiStatus = document.getElementById('bmi-status');
+        if (dashboardBMI) {
+          dashboardBMI.textContent = parseFloat(latestBMI.value).toFixed(1);
+        }
+        if (bmiStatus) {
+          bmiStatus.textContent = getBMICategory(parseFloat(latestBMI.value));
+        }
+      }
+      
+      if (bodyFatData.length > 0) {
+        const latestBodyFat = bodyFatData[bodyFatData.length - 1];
+        const dashboardBodyFat = document.getElementById('dashboard-bodyfat');
+        if (dashboardBodyFat) {
+          dashboardBodyFat.textContent = `${parseFloat(latestBodyFat.value).toFixed(1)}%`;
+        }
+      }
+      
+      // 1. Weight Trend with BMI overlay
+      if (weightData.length > 0 || bmiData.length > 0) {
+        // Prepare data for chart
+        const allDates = new Set();
+        const weightValues = {};
+        const bmiValues = {};
+        
+        // Process weight data
+        weightData.forEach(entry => {
+          const date = new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          allDates.add(date);
+          weightValues[date] = parseFloat(entry.value);
+        });
+        
+        // Process BMI data
+        bmiData.forEach(entry => {
+          const date = new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          allDates.add(date);
+          bmiValues[date] = parseFloat(entry.value);
+        });
+        
+        // Convert to arrays and sort by date
+        const sortedDates = Array.from(allDates).sort((a, b) => 
+          new Date(a) - new Date(b)
+        );
+        
+        // Get last 7 dates or all if less than 7
+        const displayDates = sortedDates.slice(-7);
+        
+        // Prepare datasets
+        const weightDataset = displayDates.map(date => weightValues[date] || null);
+        const bmiDataset = displayDates.map(date => bmiValues[date] || null);
+        
+        // Create or update weight chart
+        if (window.weightChart) {
+          window.weightChart.destroy();
+        }
+        
+        window.weightChart = new Chart(weightChartCtx.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: displayDates,
+            datasets: [
+              {
+                label: 'Weight (kg)',
+                data: weightDataset,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4,
+                yAxisID: 'y'
+              },
+              {
+                label: 'BMI',
+                data: bmiDataset,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderDash: [5, 5],
+                fill: false,
+                tension: 0.4,
+                yAxisID: 'y1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Weight & BMI Trend'
+              },
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              }
+            },
+            scales: {
+              y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: {
+                  display: true,
+                  text: 'Weight (kg)'
+                }
+              },
+              y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: {
+                  display: true,
+                  text: 'BMI'
+                },
+                grid: {
+                  drawOnChartArea: false
+                }
+              }
+            }
+          }
+        });
+      } else {
+        displayNoDataMessage(weightChartCtx.getContext('2d'), 'No weight/BMI data available');
+      }
+      
+      // 2. Body Fat % Trend
+      if (bodyFatData.length > 0) {
+        // Prepare data for chart
+        const dates = [];
+        const values = [];
+        
+        // Get last 7 entries or all if less than 7
+        const lastEntries = bodyFatData.slice(-7);
+        
+        lastEntries.forEach(entry => {
+          const date = new Date(entry.date);
+          dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+          values.push(parseFloat(entry.value));
+        });
+        
+        // Create or update body fat chart
+        if (window.healthChart) {
+          window.healthChart.destroy();
+        }
+        
+        window.healthChart = new Chart(healthChartCtx.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: dates,
+            datasets: [{
+              label: 'Body Fat %',
+              data: values,
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Body Fat Percentage'
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'Body Fat %'
+                }
+              }
+            }
+          }
+        });
+      } else {
+        displayNoDataMessage(healthChartCtx.getContext('2d'), 'No body fat data available');
+      }
+      
+      // Update recommendations based on data
+      updateRecommendations();
+    }
+
+    // Function to update recommendations based on user data
+    function updateRecommendations() {
+      const recommendationsContent = document.getElementById('recommendations-content');
+      if (!recommendationsContent) return;
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+      if (!currentUser.id) return;
+      
+      // Get user data
+      const bmiData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_bmi`) || '[]');
+      const bodyFatData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_bodyfat`) || '[]');
+      const weightData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_weight`) || '[]');
+      const waterData = JSON.parse(localStorage.getItem(`user_${currentUser.id}_water`) || '[]');
+      
+      let recommendations = '<div class="recommendations-list">';
+      
+      // BMI recommendations
+      if (bmiData.length > 0) {
+        const latestBMI = parseFloat(bmiData[bmiData.length - 1].value);
+        const bmiCategory = getBMICategory(latestBMI);
+        
+        if (bmiCategory === 'Underweight') {
+          recommendations += '<p>⚠️ <strong>BMI Alert:</strong> Your BMI indicates you are underweight. Consider consulting with a healthcare provider about a healthy weight gain plan.</p>';
+        } else if (bmiCategory === 'Overweight' || bmiCategory === 'Obese') {
+          recommendations += '<p>⚠️ <strong>BMI Alert:</strong> Your BMI indicates you are ' + bmiCategory.toLowerCase() + '. Focus on a balanced diet and regular exercise to reach a healthier weight.</p>';
+        } else {
+          recommendations += '<p>✅ <strong>BMI Status:</strong> Your BMI is in the normal range. Keep up the good work!</p>';
+        }
+      }
+      
+      // Body Fat recommendations
+      if (bodyFatData.length > 0) {
+        const latestBodyFat = parseFloat(bodyFatData[bodyFatData.length - 1].value);
+        const gender = currentUser.gender || 'male'; // Default to male if not specified
+        
+        let bodyFatCategory;
+        if (gender === 'male') {
+          if (latestBodyFat < 6) bodyFatCategory = "Essential fat";
+          else if (latestBodyFat < 14) bodyFatCategory = "Athletic";
+          else if (latestBodyFat < 18) bodyFatCategory = "Fitness";
+          else if (latestBodyFat < 25) bodyFatCategory = "Average";
+          else bodyFatCategory = "Obese";
+        } else {
+          if (latestBodyFat < 14) bodyFatCategory = "Essential fat";
+          else if (latestBodyFat < 21) bodyFatCategory = "Athletic";
+          else if (latestBodyFat < 25) bodyFatCategory = "Fitness";
+          else if (latestBodyFat < 32) bodyFatCategory = "Average";
+          else bodyFatCategory = "Obese";
+        }
+        
+        if (bodyFatCategory === "Obese") {
+          recommendations += '<p>⚠️ <strong>Body Fat Alert:</strong> Your body fat percentage is high. Consider focusing on strength training and a protein-rich diet to build muscle and reduce fat.</p>';
+        } else if (bodyFatCategory === "Essential fat") {
+          recommendations += '<p>⚠️ <strong>Body Fat Alert:</strong> Your body fat percentage is very low. This could impact hormone function and overall health. Consider consulting with a healthcare provider.</p>';
+        } else {
+          recommendations += '<p>✅ <strong>Body Fat Status:</strong> Your body fat percentage is in the ' + bodyFatCategory.toLowerCase() + ' range. Keep up the good work!</p>';
+        }
+      }
+      
+      // Weight trend recommendations
+      if (weightData.length > 1) {
+        const latestWeight = parseFloat(weightData[weightData.length - 1].value);
+        const previousWeight = parseFloat(weightData[weightData.length - 2].value);
+        const weightChange = latestWeight - previousWeight;
+        
+        if (Math.abs(weightChange) > 0.5) { // If weight changed by more than 0.5kg
+          const direction = weightChange > 0 ? 'gained' : 'lost';
+          const absChange = Math.abs(weightChange).toFixed(1);
+          
+          recommendations += `<p>📊 <strong>Weight Change:</strong> You've ${direction} ${absChange}kg since your last measurement. `;
+          
+          // Add context based on BMI if available
+          if (bmiData.length > 0) {
+            const latestBMI = parseFloat(bmiData[bmiData.length - 1].value);
+            const bmiCategory = getBMICategory(latestBMI);
+            
+            if ((bmiCategory === 'Underweight' && direction === 'lost') || 
+                ((bmiCategory === 'Overweight' || bmiCategory === 'Obese') && direction === 'gained')) {
+              recommendations += 'This change may not be ideal for your current BMI status. Consider adjusting your nutrition and exercise plan.</p>';
+            } else if ((bmiCategory === 'Underweight' && direction === 'gained') || 
+                      ((bmiCategory === 'Overweight' || bmiCategory === 'Obese') && direction === 'lost')) {
+              recommendations += 'This change is positive for your current BMI status. Keep up the good work!</p>';
+            } else {
+              recommendations += 'Maintain a balanced diet and regular exercise to stay within a healthy weight range.</p>';
+            }
+          } else {
+            recommendations += 'Maintain a balanced diet and regular exercise to stay within a healthy weight range.</p>';
+          }
+        }
+      }
+      
+      // Water intake recommendations
+      if (waterData.length > 0) {
+        const latestWaterIntake = parseInt(waterData[waterData.length - 1].value);
+        
+        if (latestWaterIntake < 2000) {
+          recommendations += '<p>🚰 <strong>Hydration Alert:</strong> Your water intake is below recommended levels. Try to drink at least 2000ml of water daily for optimal hydration.</p>';
+        } else {
+          recommendations += '<p>🚰 <strong>Good Hydration:</strong> You\'re doing well with your water intake. Keep it up!</p>';
+        }
+      }
+      
+      // Close recommendations div
+      recommendations += '</div>';
+      
+      // Add a general health tip
+      const healthTips = [
+        "Try to get at least 7-8 hours of sleep each night for optimal recovery and health.",
+        "Include at least 30 minutes of moderate exercise in your daily routine.",
+        "Aim for 5 servings of fruits and vegetables daily for essential nutrients.",
+        "Take short breaks from sitting every hour to improve circulation and reduce health risks.",
+        "Practice mindfulness or meditation to reduce stress and improve mental wellbeing.",
+        "Limit processed foods and focus on whole, nutrient-dense options.",
+        "Stay consistent with your health habits - small daily actions lead to big results."
+      ];
+      
+      const randomTip = healthTips[Math.floor(Math.random() * healthTips.length)];
+      recommendations += `<div class="daily-tip"><i class="fas fa-star"></i> <strong>Daily Health Tip:</strong> ${randomTip}</div>`;
+      
+      // Update the recommendations content
+      recommendationsContent.innerHTML = recommendations;
+    }
+
+    // Function to get BMI category
+    function getBMICategory(bmi) {
+      if (bmi < 18.5) return 'Underweight';
+      if (bmi >= 18.5 && bmi < 25) return 'Normal weight';
+      if (bmi >= 25 && bmi < 30) return 'Overweight';
+      return 'Obese';
+    }
+
+    // Function to display "No Data" message in charts
+    function displayNoDataMessage(ctx, message) {
+      if (typeof ctx === 'object' && ctx.canvas) {
+        ctx = ctx.canvas.getContext('2d');
+      }
+      
+      // Clear the canvas
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      
+      // Set text properties
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '14px Arial';
+      ctx.fillStyle = '#999';
+      
+      // Draw the message
+      ctx.fillText(message, ctx.canvas.width / 2, ctx.canvas.height / 2);
+    }
+
+    // Function to check if this is the first login
+    function checkIfFirstLogin() {
+      // Get the current user from session storage
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+      
+      // Check if the user has a firstLogin flag
+      if (currentUser.id) {
+        // Check if we've recorded this user's first visit
+        const firstLoginFlag = localStorage.getItem(`user_${currentUser.id}_first_login`);
+        
+        if (!firstLoginFlag) {
+          // Set the flag for future visits
+          localStorage.setItem(`user_${currentUser.id}_first_login`, 'false');
+          return true;
+        }
+        return false;
+      }
+      
+      // Default to true if we can't determine
+      return true;
+    }
+
+    // Function to navigate to calculator
+    function navigateToCalculator() {
+      window.location.href = 'calculators.html';
+    }
+
+    // Function to show no data message
+    function showNoDataMessage() {
+      document.getElementById('recommendations-content').innerHTML = 
+        '<div class="no-data-message">' +
+        '<i class="fas fa-info-circle"></i>' +
+        '<p>Please calculate your BMI and other health metrics to see personalized recommendations.</p>' +
+        '<button class="calculate-now-btn" onclick="navigateToCalculator()">Calculate Now</button>' +
+        '</div>';
+    }
+
+    // Add event listeners for tab navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Tab navigation for calculators
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons and contents
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabContents.forEach(c => c.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding content
+          this.classList.add('active');
+          const tabId = this.getAttribute('data-tab');
+          document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+      });
+      
+      // Add event listeners for calculator buttons
+      const calculateBMIBtn = document.getElementById('calculate-bmi');
+      if (calculateBMIBtn) {
+        calculateBMIBtn.addEventListener('click', calculateBMI);
+      }
+      
+      const calculateBMRBtn = document.getElementById('calculate-bmr');
+      if (calculateBMRBtn) {
+        calculateBMRBtn.addEventListener('click', calculateBMR);
+      }
+      
+      const calculateBodyFatBtn = document.getElementById('calculate-bodyfat');
+      if (calculateBodyFatBtn) {
+        calculateBodyFatBtn.addEventListener('click', calculateBodyFat);
+      }
+      
+      const calculateIdealWeightBtn = document.getElementById('calculate-idealweight');
+      if (calculateIdealWeightBtn) {
+        calculateIdealWeightBtn.addEventListener('click', calculateIdealWeight);
+      }
+      
+      const calculateWaterBtn = document.getElementById('calculate-water');
+      if (calculateWaterBtn) {
+        calculateWaterBtn.addEventListener('click', calculateWaterIntake);
+      }
+      
+      // Add event listeners for daily log date navigation
+      const prevDayBtn = document.getElementById('prev-day');
+      const nextDayBtn = document.getElementById('next-day');
+      const logDateInput = document.getElementById('log-date');
+      
+      if (logDateInput) {
+        // Set default date to today
+        const today = new Date();
+        logDateInput.valueAsDate = today;
+        
+        // Load log data for today
+        loadLogData(today);
+      }
+      
+      if (prevDayBtn) {
+        prevDayBtn.addEventListener('click', function() {
+          const currentDate = new Date(logDateInput.value);
+          currentDate.setDate(currentDate.getDate() - 1);
+          logDateInput.valueAsDate = currentDate;
+          loadLogData(currentDate);
+        });
+      }
+      
+      if (nextDayBtn) {
+        nextDayBtn.addEventListener('click', function() {
+          const currentDate = new Date(logDateInput.value);
+          currentDate.setDate(currentDate.getDate() + 1);
+          logDateInput.valueAsDate = currentDate;
+          loadLogData(currentDate);
+        });
+      }
+      
+      if (logDateInput) {
+        logDateInput.addEventListener('change', function() {
+          loadLogData(new Date(this.value));
+        });
+      }
+      
+      // Add event listeners for log save buttons
+      const logSaveBtns = document.querySelectorAll('.log-save-btn');
+      logSaveBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const logType = this.getAttribute('data-log');
+          saveLogData(logType);
+        });
+      });
+      
+      // Add event listeners for meal plan generation
+      const generateMealPlanBtn = document.getElementById('generate-meal-plan');
+      if (generateMealPlanBtn) {
+        generateMealPlanBtn.addEventListener('click', generateMealPlan);
+      }
+      
+      // Add event listeners for meal plan day tabs
+      const dayTabs = document.querySelectorAll('.day-tab');
+      const dayMealPlans = document.querySelectorAll('.day-meal-plan');
+      
+      dayTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs and plans
+          dayTabs.forEach(t => t.classList.remove('active'));
+          dayMealPlans.forEach(p => p.classList.remove('active'));
+          
+          // Add active class to clicked tab and corresponding plan
+          this.classList.add('active');
+          const dayId = this.getAttribute('data-day');
+          document.getElementById(`${dayId}-plan`).classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
